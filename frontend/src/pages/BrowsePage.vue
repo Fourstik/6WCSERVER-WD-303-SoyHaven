@@ -1,0 +1,256 @@
+<script setup>
+import { onMounted, onBeforeUnmount } from 'vue'
+
+import SiteNav from '../components/SiteNav.vue'
+import SiteFooter from '../components/SiteFooter.vue'
+
+let loaded = []
+let browseStylesheet
+
+
+function loadLegacyScript(src) {
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script')
+    s.src = src
+
+    s.onload = () => {
+      loaded.push(s)
+      resolve()
+    }
+
+    s.onerror = () => {
+      s.remove()
+      reject(new Error(`Failed to load ${src}`))
+    }
+
+    document.body.appendChild(s)
+  })
+}
+
+async function ensureSharedScript() {
+  const existing = document.querySelector(
+    'script[data-legacy-script="/js/shared.js"]'
+  )
+
+  if (existing) return
+
+  await new Promise((resolve, reject) => {
+    const s = document.createElement('script')
+    s.src = '/js/shared.js'
+    s.dataset.legacyScript = '/js/shared.js'
+
+    s.onload = resolve
+    s.onerror = () => {
+      s.remove()
+      reject(new Error('Failed to load shared.js'))
+    }
+
+    document.body.appendChild(s)
+  })
+}
+
+
+onMounted(async () => {
+  browseStylesheet = document.createElement('link')
+  browseStylesheet.rel = 'stylesheet'
+  browseStylesheet.href = '/css/browse_styles.css'
+  document.head.appendChild(browseStylesheet)
+
+  await ensureSharedScript()
+  await loadLegacyScript('/js/browse.js')
+})
+
+onBeforeUnmount(() => {
+  loaded.forEach(s => s.remove())
+
+  if (browseStylesheet) {
+    browseStylesheet.remove()
+  }
+})
+</script>
+
+<template>
+  <SiteNav />
+
+
+
+<!-- ══════════════════════════════════════════
+      PAGE HERO (mini)
+  ══════════════════════════════════════════ -->
+  <section class="page-hero">
+    <div class="page-hero__overlay"></div>
+    <img class="page-hero__bg"
+      src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1600&auto=format&fit=crop&q=70"
+      alt="Restaurant interior" />
+    <div class="page-hero__content container">
+      <p class="hero__eyebrow">Find Dining in Pampanga</p>
+      <h1 class="page-hero__title">Browse Restaurants</h1>
+      <p class="page-hero__sub">Discover dining spots across Angeles City, Clark, San Fernando, and Mabalacat.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+      MAIN BROWSE LAYOUT
+  ══════════════════════════════════════════ -->
+  <main class="browse">
+    <div class="container browse__container">
+
+      <!-- ── Sidebar ─────────────────────────────────── -->
+      <aside class="sidebar">
+        <div class="sidebar__header">
+          <h2 class="sidebar__title">Filters</h2>
+          <button class="sidebar__clear" id="clearFilters">Clear all</button>
+        </div>
+
+        <!-- Active filter tags -->
+        <div class="active-filters" id="activeFilters"></div>
+
+        <!-- Search -->
+        <div class="filter-group">
+          <label class="filter-label">Search</label>
+          <div class="search-wrap">
+            <span class="search-icon">🔍</span>
+            <input
+              type="text"
+              class="search-input"
+              id="searchInput"
+              placeholder="Name or location..."
+              autocomplete="off"
+            />
+            <button class="search-clear" id="searchClear" aria-label="Clear search">✕</button>
+          </div>
+        </div>
+
+        <!-- Cuisine -->
+        <div class="filter-group">
+          <label class="filter-label">Cuisine</label>
+          <div class="filter-options" id="cuisineFilters">
+            <label class="filter-option"><input type="checkbox" name="cuisine" value="American" /> 🍔 American</label>
+            <label class="filter-option"><input type="checkbox" name="cuisine" value="Chinese" /> 🥟 Chinese</label>
+            <label class="filter-option"><input type="checkbox" name="cuisine" value="Filipino" /> 🍲 Filipino</label>
+            <label class="filter-option"><input type="checkbox" name="cuisine" value="Indian" /> 🍛 Indian</label>
+            <label class="filter-option"><input type="checkbox" name="cuisine" value="Italian" /> 🍕 Italian</label>
+            <label class="filter-option"><input type="checkbox" name="cuisine" value="Japanese" /> 🍣 Japanese</label>
+            <label class="filter-option"><input type="checkbox" name="cuisine" value="Korean" /> 🍜 Korean</label>
+            <label class="filter-option"><input type="checkbox" name="cuisine" value="Mexican" /> 🌮 Mexican</label>
+            <label class="filter-option"><input type="checkbox" name="cuisine" value="Seafood" /> 🦐 Seafood</label>
+            <label class="filter-option"><input type="checkbox" name="cuisine" value="Vegetarian" /> 🥗 Vegetarian</label>
+            <label class="filter-option"><input type="checkbox" name="cuisine" value="Cafe" /> ☕ Cafe</label>
+          </div>
+        </div>
+
+        <!-- Location -->
+        <div class="filter-group">
+          <label class="filter-label">Location</label>
+          <div class="filter-options" id="locationFilters">
+            <label class="filter-option">
+              <input type="radio" name="location" value="" checked /> All areas
+            </label>
+            <label class="filter-option">
+              <input type="radio" name="location" value="Angeles City" /> Angeles City
+            </label>
+            <label class="filter-option">
+              <input type="radio" name="location" value="Clark" /> Clark
+            </label>
+            <label class="filter-option">
+              <input type="radio" name="location" value="San Fernando" /> San Fernando
+            </label>
+            <label class="filter-option">
+              <input type="radio" name="location" value="Mabalacat" /> Mabalacat
+            </label>
+          </div>
+        </div>
+
+        <!-- Min Rating -->
+        <div class="filter-group">
+          <label class="filter-label">Minimum Rating</label>
+          <div class="rating-filter" id="ratingFilter">
+            <button class="rating-btn active" data-rating="">Any</button>
+            <button class="rating-btn" data-rating="4.0">4.0+</button>
+            <button class="rating-btn" data-rating="4.3">4.3+</button>
+            <button class="rating-btn" data-rating="4.5">4.5+</button>
+            <button class="rating-btn" data-rating="4.7">4.7+</button>
+          </div>
+        </div>
+
+        <!-- Sort -->
+        <div class="filter-group">
+          <label class="filter-label">Sort by</label>
+          <select class="filter-select" id="sortSelect">
+            <option value="rating-desc">Rating (highest first)</option>
+            <option value="rating-asc">Rating (lowest first)</option>
+            <option value="name-asc">Name A–Z</option>
+            <option value="name-desc">Name Z–A</option>
+          </select>
+        </div>
+      </aside>
+
+      <!-- ── Results area ────────────────────────────── -->
+      <div class="results">
+
+        <!-- Recently added (hidden until something new exists) -->
+        <section class="recent hidden" id="recentSection">
+          <div class="recent__header">
+            <h2 class="recent__title">Recently Added</h2>
+            <span class="recent__tag">New</span>
+          </div>
+          <div class="cards" id="recentCards"></div>
+        </section>
+        
+        <!-- Toolbar -->
+        <div class="results__toolbar">
+          <p class="results__count" id="resultsCount">Loading...</p>
+          <div class="view-toggle">
+            <button class="view-btn active" id="gridBtn" title="Grid view" aria-label="Grid view">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <rect x="0" y="0" width="7" height="7" rx="1"/>
+                <rect x="9" y="0" width="7" height="7" rx="1"/>
+                <rect x="0" y="9" width="7" height="7" rx="1"/>
+                <rect x="9" y="9" width="7" height="7" rx="1"/>
+              </svg>
+            </button>
+            <button class="view-btn" id="listBtn" title="List view" aria-label="List view">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <rect x="0" y="0" width="16" height="3" rx="1"/>
+                <rect x="0" y="6" width="16" height="3" rx="1"/>
+                <rect x="0" y="12" width="16" height="3" rx="1"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Grid view -->
+        <div class="cards results__grid" id="gridView">
+          <div class="card-skeleton"></div>
+          <div class="card-skeleton"></div>
+          <div class="card-skeleton"></div>
+          <div class="card-skeleton"></div>
+          <div class="card-skeleton"></div>
+          <div class="card-skeleton"></div>
+        </div>
+
+        <!-- List view -->
+        <div class="results__list hidden" id="listView">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Empty state -->
+        <div class="empty-state hidden" id="emptyState">
+          <div class="empty-state__icon">🍽️</div>
+          <h3 class="empty-state__title">No restaurants found</h3>
+          <p class="empty-state__sub">Try adjusting your filters or search term.</p>
+          <button class="btn btn--ghost" id="emptyStateClear">Clear all filters</button>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer injected by component.js -->
+
+  <!-- Shared component script -->
+
+  <!-- Shared card builders, then this page's logic -->
+
+  <SiteFooter />
+</template>
