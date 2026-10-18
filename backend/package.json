@@ -9,16 +9,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Fourstik/SanKap.git"
+    "url": "git+https://github.com/Fourstik/SoyHaven.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/Fourstik/SanKap/issues"
+    "url": "https://github.com/Fourstik/SoyHaven/issues"
   },
-  "homepage": "https://github.com/Fourstik/SanKap#readme",
+  "homepage": "https://github.com/Fourstik/SoyHaven#readme",
   "dependencies": {
     "cors": "^2.8.6",
     "dotenv": "^18.0.5",
