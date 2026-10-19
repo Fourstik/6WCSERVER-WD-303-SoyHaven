@@ -129,10 +129,10 @@ The app is deployed on Vercel as two projects from this repository: the Express 
 
 | Member | Nickname | Role |
 |---|---|---|
-| Almariego, James Michael E. | Jam | Vue.js Developer & Frontend Contributor |
-| Incognito, Rich Cristoff C. | Fourstik | Project Leader & Full Stack Developer |
-| Jose, Adrian Meldrich C. | Don Mel | UI/UX Lead & Creative Director |
-| Montoya, Dohn Diehllon Djan D. | D3 | Systems Analyst & QA |
+| Almariego, James Michael E. | Jam | Vue.js Developer, Frontend Contributor, Document Lead |
+| Incognito, Rich Cristoff C. | Fourstik | Project Leader, Full Stack Developer, Document Contributor |
+| Jose, Adrian Meldrich C. | Don Mel | UI/UX Lead & Creative Director, Project Plan & Schedule Lead, Document Contributor |
+| Montoya, Dohn Diehllon Djan D. | D3 | Systems Analyst & QA, Presentation Lead, Document Contributor |
 
 **Submitted to:** Prof. Rene Jr. D. Laguna, Faculty-in-Charge
 **Course:** Web Server and Client Services (6WCSERVER), October 2026
