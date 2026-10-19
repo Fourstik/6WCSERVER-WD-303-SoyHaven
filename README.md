@@ -70,8 +70,8 @@ SoyHaven/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/Fourstik/SoyHaven.git
-cd SoyHaven
+git clone https://github.com/Fourstik/6WCSERVER-WD-303-SoyHaven.git
+cd 6WCSERVER-WD-303-SoyHaven
 ```
 
 ### 2. Set up the backend
