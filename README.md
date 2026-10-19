@@ -6,7 +6,7 @@ A WCSERVER (6WCSERVER) final project of Holy Angel University, School of Computi
 
 - **Live site:** https://soyhaven.vercel.app/
 - **Figma mockup:** https://www.figma.com/design/15VdWKXCtV6AHSjv7EeOZD/WCSERVER-MOCKUP?node-id=0-1&t=vPN1DoKyCh2z0YwV-1
-- **Video presentation and demonstration:** _link to be added_
+- **Video presentation and demonstration:** https://drive.google.com/file/d/1y4pOpuOPyYPD0KN127Wace7fRdFElqhm/view?usp=sharing
 
 ---
 
