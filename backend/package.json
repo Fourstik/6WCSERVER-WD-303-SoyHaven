@@ -1,7 +1,7 @@
 {
   "name": "soyhaven-backend",
   "version": "1.0.0",
-  "description": "This is the repository for the 2187-6ADDBASE Final Project.",
+  "description": "This is the repository for the 2190-6WCSERVER Final Project.",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -9,16 +9,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Fourstik/SoyHaven.git"
+    "url": "git+https://github.com/Fourstik/6WCSERVER-WD-303-SoyHaven.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/Fourstik/SoyHaven/issues"
+    "url": "https://github.com/Fourstik/6WCSERVER-WD-303-SoyHaven/issues"
   },
-  "homepage": "https://github.com/Fourstik/SoyHaven#readme",
+  "homepage": "https://github.com/Fourstik/6WCSERVER-WD-303-SoyHaven#readme",
   "dependencies": {
     "cors": "^2.8.6",
     "dotenv": "^18.0.5",
