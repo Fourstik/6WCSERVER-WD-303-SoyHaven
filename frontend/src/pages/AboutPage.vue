@@ -181,7 +181,7 @@ onBeforeUnmount(() => {
           </div>
           <p class="team-card__nickname">"Fourstik"</p>
           <h3 class="team-card__name">Incognito, Rich Cristoff C.</h3>
-          <p class="team-card__role">Project Leader & Backend Developer</p>
+          <p class="team-card__role">Project Leader & Full Stack Developer</p>
         </div>
 
         <!-- Member 3: Don Mel -->
